@@ -1,5 +1,6 @@
 package com.kurochkina.anna;
 
+// import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.MappingIterator;
 // import com.fasterxml.jackson.databind.ObjectMapper;
@@ -10,6 +11,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.List;
+// import java.util.Map;
 
 public class CsvReader {
 	public static List<Book> LoadBooks(String fileName) throws IOException, URISyntaxException {
@@ -31,6 +33,12 @@ public class CsvReader {
 		return iterator.readAll();
 
 	}
-
+	
+	// public static void CsvToJson(List<Book> LoadBooks) throws JsonProcessingException {
+	// 	ObjectMapper mapper = new ObjectMapper();
+    //     String jsonResult = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(LoadBooks);
+	// 	System.out.println(jsonResult);
+	// }
+	
 
 }
