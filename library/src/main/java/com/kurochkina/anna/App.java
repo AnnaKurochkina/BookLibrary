@@ -6,23 +6,42 @@ import java.net.URISyntaxException;
 
 // import com.fasterxml.jackson.databind.ObjectMapper;
 
-/**
- * Hello world!
- *
- */
 public class App {
 
 	public static void main(String[] args) throws IOException, URISyntaxException {
+
 		System.out.println("Hello World!");
-		var booksFileName = "books_data.json";
-		File books = new File(booksFileName);
-		if (!books.exists()) {
-			var booksToJson = FileUtility.LoadBooks("books_data.csv");
-			FileUtility.WriteJson(booksToJson, booksFileName);
-			// System.out.println(books.getName());
-			// } else {
-			// System.out.println(books.getName());
-		}
+		// Library library = new Library();
+		// library.loginRegister();
+
+
+
+		// var booksFileName = "books_data.json";
+		// File books = new File(booksFileName);
+		// if (!books.exists()) {
+		// 	var booksToJson = FileUtility.LoadItems("books_data.csv", Book.class);
+		// 	// var booksToJson = FileUtility.LoadBooks("books_data.csv", Book.class);
+		// 	FileUtility.WriteJson(booksToJson, booksFileName);
+		// }
+
+		// var usersFileName = "users_data.json";
+		// File users = new File(usersFileName);
+		// if (!users.exists()) {
+		// 	var usersToJson = FileUtility.LoadItems("users_data.csv", User.class);
+		// 	FileUtility.WriteJson(usersToJson, usersFileName);
+		// }
+
+		// System.out.println(FileUtility.ReadJson(books, Book.class));
+		// System.out.println(FileUtility.ReadJson(users, User.class));
+
+		// System.out.println(FileUtility.ReadJson(users, User.class));
+		Library library = new Library();
+		library.OpenLibrary();
+		library.LoginRegister();
+
+		// User user = new User();
+		// System.out.println(FileUtility.ReadJson(users, User.class));
+		
 		// Book Book = new Book();
 		// Book.toString();
 		// books.toString();

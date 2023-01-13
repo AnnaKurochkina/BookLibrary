@@ -1,26 +1,42 @@
 package com.kurochkina.anna;
 
+import java.util.List;
+
 public class User {
+	String id;
 	String firstName;
 	String lastName;
-	int age;
-	String phoneNumber;
+	String login;
+	String dateOfBirth;
+	String phone;
 	String address;
 	String password;
 	boolean isAdmin;
-
-
+	List<String> booksLoaned;
 
 	public User() {
 	}
 
-	public User(String firstName, String lastName, int age, String phoneNumber, String address, boolean isAdmin) {
+
+	public User(String id, String firstName, String lastName, String login, String dateOfBirth, String phone, String address, String password, boolean isAdmin) {
+		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.age = age;
-		this.phoneNumber = phoneNumber;
+		this.login = login;
+		this.dateOfBirth = dateOfBirth;
+		this.phone = phone;
 		this.address = address;
+		this.password = password;
 		this.isAdmin = isAdmin;
+	}
+	
+
+	public String getId() {
+		return this.id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	public String getFirstName() {
@@ -39,20 +55,28 @@ public class User {
 		this.lastName = lastName;
 	}
 
-	public int getAge() {
-		return this.age;
+	public String getLogin() {
+		return this.login;
 	}
 
-	public void setAge(int age) {
-		this.age = age;
+	public void setLogin(String login) {
+		this.login = login;
 	}
 
-	public String getPhoneNumber() {
-		return this.phoneNumber;
+	public String getDateOfBirth() {
+		return this.dateOfBirth;
 	}
 
-	public void setPhoneNumber(String phoneNumber) {
-		this.phoneNumber = phoneNumber;
+	public void setDateOfBirth(String dateOfBirth) {
+		this.dateOfBirth = dateOfBirth;
+	}
+
+	public String getPhone() {
+		return this.phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 
 	public String getAddress() {
@@ -82,4 +106,46 @@ public class User {
 	public void setIsAdmin(boolean isAdmin) {
 		this.isAdmin = isAdmin;
 	}
+	
+	public List<String> getBooksLoaned() {
+		return this.booksLoaned;
+	}
+
+	public void setBooksLoaned(List<String> booksLoaned) {
+		this.booksLoaned = booksLoaned;
+	}
+
+	public void addLoanedBook(String number){
+        this.booksLoaned.add(number);
+    }
+
+    public void returnBook(String number){
+        this.booksLoaned.remove(number);
+    }
+
+	@Override
+	public String toString() {
+		return "ID: " + id + " Name: "+ firstName + " " + lastName + " \n";
+	}
+
+
+	public String setId() {
+		return null;
+	}
+
+	// @Override
+	// public String toString() {
+	// 	return "{" +
+	// 		" id='" + getId() + "'" +
+	// 		", firstName='" + getFirstName() + "'" +
+	// 		", lastName='" + getLastName() + "'" +
+	// 		", login='" + getLogin() + "'" +
+	// 		", dateOfBirth='" + getDateOfBirth() + "'" +
+	// 		", phone='" + getPhone() + "'" +
+	// 		", address='" + getAddress() + "'" +
+	// 		", password='" + getPassword() + "'" +
+	// 		", isAdmin='" + isIsAdmin() + "'" +
+	// 		", booksLoaned='" + getBooksLoaned() + "'" +
+	// 		"}";
+	// }
 }

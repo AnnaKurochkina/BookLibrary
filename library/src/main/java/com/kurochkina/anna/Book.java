@@ -1,18 +1,17 @@
 package com.kurochkina.anna;
 
 public class Book {
-	int number;
+	String number;
 	String title;
 	String author;
 	String genre;
 	String subGenre;
 	String publisher;
 	boolean isBorrowed;
-	int userId;
+	String userId;
 	int timesLoaned;
-	// String returnDate;
 
-	public Book(int number, String title, String author, String genre, String subGenre, String publisher) {
+	public Book(String number, String title, String author, String genre, String subGenre, String publisher, boolean isBorrowed, int timesLoaned) {
 		this.number = number;
 		this.title = title;
 		this.author = author;
@@ -20,22 +19,18 @@ public class Book {
 		this.subGenre = subGenre;
 		this.publisher = publisher;
 		this.isBorrowed = false;
+		this.timesLoaned = 0;
 	}
 
 	public void setIsBorrowed(boolean isBorrowed) {
 		this.isBorrowed = true;
 	}
 
-	// book returned
-	public void setToReturned() {
-		this.isBorrowed = false;
-	}
-
-	public int getUserId() {
+	public String getUserId() {
 		return this.userId;
 	}
 
-	public void setUserId(int userId) {
+	public void setUserId(String userId) {
 		this.userId = userId;
 	}
 
@@ -50,11 +45,11 @@ public class Book {
 	public Book() {
 	}
 
-	public int getNumber() {
+	public String getNumber() {
 		return this.number;
 	}
 
-	public void setNumber(int number) {
+	public void setNumber(String number) {
 		this.number = number;
 	}
 
@@ -102,6 +97,4 @@ public class Book {
 	public String toString() {
 		return "ID: " + number + " Title: "+ title+ " \n";
 	}
-
-
 }
