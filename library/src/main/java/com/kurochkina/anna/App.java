@@ -1,93 +1,82 @@
 package com.kurochkina.anna;
 
-import java.io.File;
-import java.io.IOException;
-import java.net.URISyntaxException;
-
-// import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.Scanner;
 
 public class App {
 
-	public static void main(String[] args) throws IOException, URISyntaxException {
+	static Scanner scanner = new Scanner(System.in);
 
-		System.out.println("Hello World!");
-		// Library library = new Library();
-		// library.loginRegister();
+	public static void main(String[] args) throws Exception {
 
+		BookStore books = new BookStore();
+		UserStore users = new UserStore();
+		// books.printAllBooks();
+		while (true) {
+			User user = users.loginRegister();
+			mainMenu(books, user, users);
+		}
+	}
 
+	public static void mainMenu(BookStore books, User user, UserStore users) throws Exception {
+		// TO DO print out the user's books that he has loaned out
 
-		// var booksFileName = "books_data.json";
-		// File books = new File(booksFileName);
-		// if (!books.exists()) {
-		// 	var booksToJson = FileUtility.LoadItems("books_data.csv", Book.class);
-		// 	// var booksToJson = FileUtility.LoadBooks("books_data.csv", Book.class);
-		// 	FileUtility.WriteJson(booksToJson, booksFileName);
-		// }
+		// System.out.println("\nBooks you are reading now: ");
+		// books.booksLoanedToUser(user);
 
-		// var usersFileName = "users_data.json";
-		// File users = new File(usersFileName);
-		// if (!users.exists()) {
-		// 	var usersToJson = FileUtility.LoadItems("users_data.csv", User.class);
-		// 	FileUtility.WriteJson(usersToJson, usersFileName);
-		// }
+		System.out.println("\nPlease Select an Option...");
+		String menuItems = "(0) Exit\n" +
+				"(1) See All Books\n" +
+				"(2) Loan a book\n" +
+				"(3) Return a book\n" +
+				"(4) Log out\n";
 
-		// System.out.println(FileUtility.ReadJson(books, Book.class));
-		// System.out.println(FileUtility.ReadJson(users, User.class));
+		if (user.getIsAdmin()) {
+			menuItems += "(5) Promote a user\n" +
+					"(6) Demote a user\n" +
+					"(7) Report books on loan\n" +
+					"(8) Report book loan counts\n";
+		}
 
-		// System.out.println(FileUtility.ReadJson(users, User.class));
-		Library library = new Library();
-		library.OpenLibrary();
-		library.LoginRegister();
+		System.out.println(menuItems);
 
-		// User user = new User();
-		// System.out.println(FileUtility.ReadJson(users, User.class));
-		
-		// Book Book = new Book();
-		// Book.toString();
-		// books.toString();
+		int selected = scanner.nextInt();
 
-		// ObjectMapper mapper = new ObjectMapper();
-		// // File file = new File("books_data.json");
-		// // Book book = ObjectMapper.readValue(file, Book.class);
-		// ObjectReader book = mapper.reader();
-		// System.out.println(book.toString());
+		if (selected == 0) {
+			System.exit(0);
+		} else if (selected == 1) {
+			books.printAllBooks();
+			mainMenu(books, user, users);
+		} else if (selected == 2) {
+			books.loanBook(user);
+			mainMenu(books, user, users);
+		} else if (selected == 3) {
+			books.returnBook(user);
+			mainMenu(books, user, users);
+		} else if (selected == 4) {
+			return;
+		} else if (user.getIsAdmin()) {
+			if (selected == 5) {
+				users.promoteUser();
+				mainMenu(books, user, users);
+			} else if (selected == 6) {
+				users.demoteUser();
+				mainMenu(books, user, users);
+			} else if (selected == 7) {
+				books.booksOnLoan();
+				mainMenu(books, user, users);
+			} else if (selected == 8) {
+				books.bookLoanCounts();
+				mainMenu(books, user, users);
+			} else {
+				invalidInput(books, user, users);
+			}
+		} else {
+			invalidInput(books, user, users);
+		}
+	}
 
-		// ObjectMapper objectMapper = new ObjectMapper();
-		// Book book = objectMapper.readValue(new
-		// File("library/src/main/resources/books_data.json"), Book.class);
-		// System.out.println(book);
-
-		// ObjectMapper mapper = new ObjectMapper();
-		// // List<Book> allBooks = (List<Book>) mapper.readValue(books, Book.class);
-		// Book[] allBooks = mapper.readValue(books, Book[].class);
-		// System.out.println(allBooks[3].author);
-
-		// public static String displayAll() {
-		// for (Book book : allBooks) {
-		// return "ID: " + book.number + " Title: "+ book.title + " \n";
-		// }
-		// }
-		// FileUtility.ReadJson(books);
-		// ObjectMapper mapper = new ObjectMapper();
-		// mapper.enable(SerializationFeature.INDENT_OUTPUT);
-		// String indented = mapper.writeValueAsString(books);
-		// System.out.println(indented);
-
-		// FileUtility.ReadJson("books_data.json");
-		// var books = CsvReader.LoadBooks("books_data.csv");
-		// // System.out.println(books.get(0).title);
-		// // System.out.println(books.size());
-		// // System.out.println(books.get(0).toString());
-		// // System.out.println(CsvReader.CsvToJson(books));
-		// // var json = CsvReader.CsvToJson(books);
-
-		// ObjectMapper mapper = new ObjectMapper();
-		// String jsonResult =
-		// mapper.writerWithDefaultPrettyPrinter().writeValueAsString(books);
-		// ObjectWriter writer = mapper.writer(new DefaultPrettyPrinter());
-		// writer.writeValue(new File("library/src/main/resources/books_data.json"),
-		// books);
-		// // System.out.println(jsonResult);
-
+	private static void invalidInput(BookStore books, User user, UserStore users) throws Exception {
+		System.out.println("Didn't understand input, try again");
+		mainMenu(books, user, users);
 	}
 }
