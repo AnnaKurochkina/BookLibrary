@@ -59,7 +59,7 @@ public class App {
 				users.promoteUser();
 				mainMenu(books, user, users);
 			} else if (selected == 6) {
-				users.demoteUser();
+				users.demoteUser(user);
 				mainMenu(books, user, users);
 			} else if (selected == 7) {
 				books.booksOnLoan();

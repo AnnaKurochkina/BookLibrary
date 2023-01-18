@@ -80,7 +80,9 @@ public class UserStore extends Store<User> {
 
 	public void promoteUser() throws Exception {
 		System.out.println("List all users: ");
-		System.out.println(users);
+		for (User user : users) {
+			System.out.println(user);
+		}
 		System.out.println("type id of a new librarian or enter 0 to cancel.");
 		int selected = input.getInteger();
 		if (selected == 0) {
@@ -99,25 +101,31 @@ public class UserStore extends Store<User> {
 		}, () -> promoteUser());
 	}
 
-	public void demoteUser() throws Exception {
-		System.out.println("List all users: ");
-		System.out.println(users);
-		System.out.println("type id of demoted librerian or enter 0 to cancel.");
+	public void demoteUser(User currentUser) throws Exception {
+		System.out.println("\nList all users: ");
+		for (User user : users) {
+			System.out.println(user);
+		}
+		System.out.println("\ntype id of demoted librerian or enter 0 to cancel.");
 		int selected = input.getInteger();
 		if (selected == 0) {
 			return;
 		}
 		findUserAnd(selected, user -> {
 			if (user.getIsAdmin()) {
+				if (user == currentUser) {
+					System.out.println("You can't demote yourself.");
+					return;
+				}
 				user.demoteUser();
 				saveData(users);
 				System.out.println(
 						user.getId() + user.getFirstName() + user.getLastName() + " is not a librerian anymore.");
 			} else {
 				System.out.println("That user is not a librarian, but you always can promote him/her!");
-				demoteUser();
+				demoteUser(currentUser);
 			}
-		}, () -> demoteUser());
+		}, () -> demoteUser(currentUser));
 	}
 
 	private void findUserAnd(int id, Consumer<User, Exception> found, Runnable<Exception> notFound) throws Exception {

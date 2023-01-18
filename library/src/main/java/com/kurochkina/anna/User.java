@@ -94,7 +94,9 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "ID: " + id + " Name: " + firstName + " " + lastName + " librerian " + isAdmin + " \n";
+		return "ID: " + StringUtilities.padRight(id, 6) + 
+		" Name: " + StringUtilities.padRight(firstName + lastName, 30) +  
+		" librerian: " + StringUtilities.padRight(isAdmin, 6);
 	}
 
 	public void promoteUser() {
