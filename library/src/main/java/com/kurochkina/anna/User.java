@@ -1,24 +1,20 @@
 package com.kurochkina.anna;
 
-import java.util.List;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class User {
-	String id;
-	String firstName;
-	String lastName;
-	String login;
-	String dateOfBirth;
-	String phone;
-	String address;
-	String password;
-	boolean isAdmin;
-	List<String> booksLoaned;
+	private int id;
+	private String firstName;
+	private String lastName;
+	private String login;
+	private String dateOfBirth;
+	private String phone;
+	private String address;
+	private String passwordHash;
+	private boolean isAdmin;
 
-	public User() {
-	}
-
-
-	public User(String id, String firstName, String lastName, String login, String dateOfBirth, String phone, String address, String password, boolean isAdmin) {
+	public User(int id,	String firstName, 	String lastName, String login, String dateOfBirth, String phone, String address, String password) {
 		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -26,126 +22,86 @@ public class User {
 		this.dateOfBirth = dateOfBirth;
 		this.phone = phone;
 		this.address = address;
-		this.password = password;
+		this.passwordHash = StringUtilities.hashString(password);
+		this.isAdmin = false;
+	}
+
+	@JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
+	public User(@JsonProperty("id") int id, 
+	@JsonProperty("firstName") String firstName, 
+	@JsonProperty("lastName") String lastName, 
+	@JsonProperty("login") String login, 
+	@JsonProperty("dateOfBirth") String dateOfBirth, 
+	@JsonProperty("phone") String phone,
+	@JsonProperty("address") String address, 
+	@JsonProperty("passwordHash") String passwordHash, 
+	@JsonProperty("isAdmin") boolean isAdmin) {
+		this.id = id;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.login = login;
+		this.dateOfBirth = dateOfBirth;
+		this.phone = phone;
+		this.address = address;
+		this.passwordHash = passwordHash;
 		this.isAdmin = isAdmin;
 	}
-	
 
-	public String getId() {
+	public int getId() {
 		return this.id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
 	}
 
 	public String getFirstName() {
 		return this.firstName;
 	}
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
 	public String getLastName() {
 		return this.lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
 	}
 
 	public String getLogin() {
 		return this.login;
 	}
 
-	public void setLogin(String login) {
-		this.login = login;
-	}
-
 	public String getDateOfBirth() {
 		return this.dateOfBirth;
-	}
-
-	public void setDateOfBirth(String dateOfBirth) {
-		this.dateOfBirth = dateOfBirth;
 	}
 
 	public String getPhone() {
 		return this.phone;
 	}
 
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
-
 	public String getAddress() {
 		return this.address;
 	}
 
-	public void setAddress(String address) {
-		this.address = address;
-	}
-
-	public String getPassword() {
-		return this.password;
+	public String getPasswordHash() {
+		return this.passwordHash;
 	}
 
 	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public boolean isIsAdmin() {
-		return this.isAdmin;
+		this.passwordHash = StringUtilities.hashString(password);
 	}
 
 	public boolean getIsAdmin() {
 		return this.isAdmin;
 	}
 
-	public void setIsAdmin(boolean isAdmin) {
-		this.isAdmin = isAdmin;
+	public boolean isMatch(String login, String password) {
+		var passwordHash = StringUtilities.hashString(password);
+		return login.equals(this.login) && passwordHash.endsWith(this.passwordHash);
 	}
-	
-	public List<String> getBooksLoaned() {
-		return this.booksLoaned;
-	}
-
-	public void setBooksLoaned(List<String> booksLoaned) {
-		this.booksLoaned = booksLoaned;
-	}
-
-	public void addLoanedBook(String number){
-        this.booksLoaned.add(number);
-    }
-
-    public void returnBook(String number){
-        this.booksLoaned.remove(number);
-    }
 
 	@Override
 	public String toString() {
-		return "ID: " + id + " Name: "+ firstName + " " + lastName + " \n";
+		return "ID: " + id + " Name: " + firstName + " " + lastName + " librerian " + isAdmin + " \n";
 	}
 
-
-	public String setId() {
-		return null;
+	public void promoteUser() {
+		this.isAdmin = true;
 	}
 
-	// @Override
-	// public String toString() {
-	// 	return "{" +
-	// 		" id='" + getId() + "'" +
-	// 		", firstName='" + getFirstName() + "'" +
-	// 		", lastName='" + getLastName() + "'" +
-	// 		", login='" + getLogin() + "'" +
-	// 		", dateOfBirth='" + getDateOfBirth() + "'" +
-	// 		", phone='" + getPhone() + "'" +
-	// 		", address='" + getAddress() + "'" +
-	// 		", password='" + getPassword() + "'" +
-	// 		", isAdmin='" + isIsAdmin() + "'" +
-	// 		", booksLoaned='" + getBooksLoaned() + "'" +
-	// 		"}";
-	// }
+	public void demoteUser() {
+		this.isAdmin = false;
+	}
 }
