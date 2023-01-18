@@ -51,7 +51,12 @@
 			<artifactId>jackson-dataformat-csv</artifactId>
 			<version>2.13.3</version>
 		</dependency>
-
+		<!-- https://central.sonatype.dev/artifact/org.eclipse.ecf/org.apache.commons.codec/1.9.0.v20170208-1614/overview -->
+		<dependency>
+			<groupId>org.eclipse.ecf</groupId>
+			<artifactId>org.apache.commons.codec</artifactId>
+			<version>1.9.0.v20170208-1614</version>
+		</dependency>
 	</dependencies>
 
 	<build>
